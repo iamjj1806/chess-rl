@@ -38,7 +38,7 @@ services:
       - DISPLAY=$DISPLAY
       - ~/.Xauthority:/root/.Xauthority
       - SDL_AUDIODRIVER=dsp
-      - SELFPLAY_SHOW_BOARD=false
+      - SELFPLAY_SHOW_BOARD=true
     volumes:
       - ./memory:/memory
       - /tmp/.X11-unix:/tmp/.X11-unix

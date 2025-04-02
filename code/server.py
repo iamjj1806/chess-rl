@@ -4,7 +4,7 @@ import os
 import socket
 import time
 from tracemalloc import start
-from typing import Tuple
+from typing import Tuple, List
 import config
 import numpy as np
 import threading
@@ -14,15 +14,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import tensorflow as tf
-from tensorflow.keras.models import load_model
+from keras.api.models import load_model
 
 logging.basicConfig(level=logging.INFO, format=' %(message)s')
 
 model = load_model(config.MODEL_FOLDER + "/model.h5")
 
 @tf.function(experimental_follow_type_hints=True)
-def predict(args: tf.Tensor) -> Tuple[list[tf.float32], list[list[tf.float32]]]:
-	return model(args)
+def predict(args: tf.Tensor) -> Tuple[List[float], List[List[float]]]:
+    return model(args)
 
 
 class ServerSocket:
@@ -152,4 +152,4 @@ if __name__ == "__main__":
 	# create the server socket and start the server
 	s = ServerSocket(os.environ.get("SOCKET_HOST", "0.0.0.0"), int(os.environ.get("SOCKET_PORT", 5000)))
 	s.start()
-	
+
