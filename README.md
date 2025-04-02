@@ -1,2 +1,2 @@
-# chess-rl
+# Chess Engine with Reinforcement Learning
  
