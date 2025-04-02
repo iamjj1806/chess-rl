@@ -1,12 +1,12 @@
 import argparse
 import os
 import tensorflow as tf
-from keras.models import Sequential
-from keras.layers import Activation, Dense, Dropout, Flatten, Conv2D, BatchNormalization, LeakyReLU, Input
-from tensorflow.keras.optimizers import Adam
+from keras.api.models import Sequential
+from keras.api.layers import Activation, Dense, Dropout, Flatten, Conv2D, BatchNormalization, LeakyReLU, Input
+from keras.api.optimizers import Adam
 # from keras.optimizer_v2 import adam
-from keras.layers import add as add_layer
-from keras.models import Model
+from keras.api.layers import add as add_layer
+from keras.api.models import Model
 from tensorflow.python.keras.engine.keras_tensor import KerasTensor
 from tensorflow.python.framework.convert_to_constants import convert_variables_to_constants_v2
 from tensorflow.python.types.core import ConcreteFunction
@@ -111,8 +111,8 @@ class RLModelBuilder:
         Builds the policy head of the neural network
         """
         model = Sequential(name='policy_head')
-        model.add(Conv2D(2, kernel_size=(1, 1), strides=(1, 1), input_shape=(self.convolution_filters,
-                  self.input_shape[1], self.input_shape[2]), padding='same', data_format='channels_first'))
+        model.add(Input(shape=(self.convolution_filters, self.input_shape[1], self.input_shape[2])))
+        model.add(Conv2D(2, kernel_size=(1, 1), strides=(1, 1), padding='same', data_format='channels_first'))
         model.add(BatchNormalization(axis=1))
         model.add(Activation('relu'))
         model.add(Flatten())
@@ -157,5 +157,5 @@ if __name__ == "__main__":
         os.makedirs(args['model_folder'])
 
     # save the model
-    print(f"Saving model to {args['model_folder']} as {args['model_name']}.h5 ...")
-    model.save(os.path.join(args['model_folder'], args['model_name']) + '.h5')
+    print(f"Saving model to {args['model_folder']} as {args['model_name']}.keras ...")
+    model.save(os.path.join(args['model_folder'], args['model_name']) + '.keras')

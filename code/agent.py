@@ -2,7 +2,7 @@ import logging
 import socket
 from rlmodelbuilder import RLModelBuilder
 import config
-from keras.models import Model
+from keras.api.models import Model
 import time
 # import tensorflow as tf
 import utils
@@ -28,7 +28,7 @@ class Agent:
             logging.info("Using local predictions")
             from tensorflow.python.ops.numpy_ops import np_config
             import tensorflow as tf
-            from tensorflow.keras.models import load_model
+            from keras.api.models import load_model
             self.model = load_model(model_path)
             self.local_predictions = True
             np_config.enable_numpy_behavior()

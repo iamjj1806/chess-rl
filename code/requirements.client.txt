@@ -8,5 +8,4 @@ graphviz
 pygame
 pygame-popup
 tensorflow
-tensorflow-intel
 python-dotenv
